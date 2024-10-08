@@ -16,5 +16,13 @@ namespace DatabaseManager
         {
             InitializeComponent();
         }
+
+        private void checkSSIS_CheckedChanged(object sender, EventArgs e)
+        {
+            lblUsername.Enabled = !checkSSIS.Checked;
+            lblPassword.Enabled = !checkSSIS.Checked;
+            txtBoxUsername.Enabled = !checkSSIS.Checked;
+            txtBoxPassword.Enabled = !checkSSIS.Checked;
+        }
     }
 }
