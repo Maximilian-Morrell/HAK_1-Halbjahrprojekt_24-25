@@ -96,6 +96,7 @@
             txtBoxIPAdress.Name = "txtBoxIPAdress";
             txtBoxIPAdress.Size = new Size(238, 23);
             txtBoxIPAdress.TabIndex = 0;
+            txtBoxIPAdress.Text = "(localdb)\\MSSQLLocalDB";
             // 
             // groupBox2
             // 

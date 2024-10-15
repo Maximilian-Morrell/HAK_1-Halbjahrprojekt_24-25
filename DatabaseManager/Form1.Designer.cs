@@ -32,9 +32,9 @@
             toolStrip1 = new ToolStrip();
             toolStripDropDownButton1 = new ToolStripDropDownButton();
             createToolStripMenuItem = new ToolStripMenuItem();
-            deleteToolStripMenuItem = new ToolStripMenuItem();
             btnCreateDatabase = new ToolStripMenuItem();
             btnCreateTable = new ToolStripMenuItem();
+            deleteToolStripMenuItem = new ToolStripMenuItem();
             TabHost = new TabControl();
             toolStrip1.SuspendLayout();
             SuspendLayout();
@@ -65,23 +65,23 @@
             createToolStripMenuItem.Size = new Size(180, 22);
             createToolStripMenuItem.Text = "Create ";
             // 
-            // deleteToolStripMenuItem
-            // 
-            deleteToolStripMenuItem.Name = "deleteToolStripMenuItem";
-            deleteToolStripMenuItem.Size = new Size(180, 22);
-            deleteToolStripMenuItem.Text = "Delete";
-            // 
             // btnCreateDatabase
             // 
             btnCreateDatabase.Name = "btnCreateDatabase";
-            btnCreateDatabase.Size = new Size(180, 22);
+            btnCreateDatabase.Size = new Size(122, 22);
             btnCreateDatabase.Text = "Database";
             // 
             // btnCreateTable
             // 
             btnCreateTable.Name = "btnCreateTable";
-            btnCreateTable.Size = new Size(180, 22);
+            btnCreateTable.Size = new Size(122, 22);
             btnCreateTable.Text = "Table";
+            // 
+            // deleteToolStripMenuItem
+            // 
+            deleteToolStripMenuItem.Name = "deleteToolStripMenuItem";
+            deleteToolStripMenuItem.Size = new Size(180, 22);
+            deleteToolStripMenuItem.Text = "Delete";
             // 
             // TabHost
             // 

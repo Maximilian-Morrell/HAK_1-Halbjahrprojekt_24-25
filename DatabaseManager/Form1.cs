@@ -1,5 +1,6 @@
 using DatabaseManager.Classes;
 using Microsoft.Data.SqlClient;
+using System.Data;
 
 namespace DatabaseManager
 {
@@ -7,8 +8,12 @@ namespace DatabaseManager
     {
         SQLController SqlController;
         LogInWindows LogInScreen = new LogInWindows();
+        DataGridView dataGridView;
+        string DBName;
+        string TableName;
         List<string> Databases = new List<string>();
-        readonly string[] HiddenDBs = {"master", "tempdb", "model", "msdb" };
+
+        readonly string[] HiddenDBs = { "master", "tempdb", "model", "msdb" };
         public Form1()
         {
             InitializeComponent();
@@ -33,34 +38,40 @@ namespace DatabaseManager
             WindowState = FormWindowState.Normal;
             Databases = SqlController.GetDatabases();
 
-            foreach(string db in HiddenDBs)
+            foreach (string db in HiddenDBs)
             {
                 Databases.Remove(db);
             }
 
-            foreach(string database in Databases)
+            foreach (string database in Databases)
             {
                 TabPage tabPage = new TabPage();
                 tabPage.Text = database;
-                
+
                 TableLayoutPanel MainLayoutPanel = new TableLayoutPanel();
                 MainLayoutPanel.ColumnCount = 2;
                 MainLayoutPanel.RowCount = 1;
 
                 ListView listview = new ListView();
                 List<string> Tables = SqlController.GetTables(database);
-                foreach(string Table in Tables)
+                foreach (string Table in Tables)
                 {
                     ListViewItem lvi = new ListViewItem();
                     lvi.Text = Table;
                     lvi.Name = database + "_" + Table;
                     listview.Items.Add(lvi);
+                    listview.Dock = DockStyle.Fill;
                 }
                 listview.ItemSelectionChanged += Listview_ItemSelectionChanged;
 
                 MainLayoutPanel.Controls.Add(listview, 0, 0);
+                MainLayoutPanel.Dock = DockStyle.Fill;
 
-                DataGridView dataGridView = new DataGridView();
+                dataGridView = new DataGridView();
+                dataGridView.Dock = DockStyle.Fill;
+                dataGridView.RowsAdded += NewRow;
+
+
                 MainLayoutPanel.Controls.Add(dataGridView, 1, 0);
 
                 tabPage.Controls.Add(MainLayoutPanel);
@@ -68,15 +79,20 @@ namespace DatabaseManager
             }
         }
 
+        private void NewRow(object? sender, DataGridViewRowsAddedEventArgs e)
+        {
+            
+        }
+
         private void Listview_ItemSelectionChanged(object? sender, ListViewItemSelectionChangedEventArgs e)
         {
             string Itemname = e.Item.Name.ToString();
-            string[] DBName = Itemname.Split("_");
+            string[] ItemNames = Itemname.Split("_");
 
-            foreach( string DB in DBName)
-            {
-                MessageBox.Show(DB);
-            }
+            DBName = ItemNames[0];
+            TableName = ItemNames[1];
+
+            dataGridView.DataSource = SqlController.GetTableContent(DBName, TableName);
         }
     }
 }

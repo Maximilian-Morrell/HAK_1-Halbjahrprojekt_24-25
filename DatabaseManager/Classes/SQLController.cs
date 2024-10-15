@@ -63,5 +63,24 @@ namespace DatabaseManager.Classes
             }
             return list;
         }
+
+        public DataTable GetTableContent(string DB, string Table)
+        {
+            DataTable dt = new DataTable();
+            try
+            {
+                Con.Open();
+                Con.ChangeDatabase(DB);
+                Cmd.CommandText = $"SELECT * FROM {Table}";
+                Reader = Cmd.ExecuteReader();
+                dt.Load(Reader);
+                Con.Close();
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message);
+            }
+            return dt;
+        }
     }
 }
