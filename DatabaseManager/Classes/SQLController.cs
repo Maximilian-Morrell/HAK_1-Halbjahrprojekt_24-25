@@ -82,5 +82,85 @@ namespace DatabaseManager.Classes
             }
             return dt;
         }
+
+        public void UpdateOldRow(DataGridViewCellCollection cells, string DB, string Table)
+        {
+            string SQLCommandString = $"UPDATE {Table} SET";
+            foreach (DataGridViewCell cell in cells)
+            {
+                if (cell.ColumnIndex != 0)
+                {
+                    if(cell.Value.ToString() != string.Empty)
+                    {
+                        if (cell.ColumnIndex == 1)
+                        {
+                            SQLCommandString = SQLCommandString + $" {cell.OwningColumn.Name} = '{cell.Value}'";
+                        }
+                        else
+                        {
+                            SQLCommandString = SQLCommandString + $", {cell.OwningColumn.Name} = '{cell.Value}'";
+                        }
+                    }
+                }
+            }
+
+            SQLCommandString = SQLCommandString + $" WHERE {cells[0].OwningColumn.Name} = {cells[0].Value}";
+
+            try
+            {
+                Con.Open();
+                Con.ChangeDatabase(DB);
+                Cmd.CommandText = SQLCommandString;
+                Cmd.ExecuteNonQuery();
+                Con.Close();
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message);
+            }
+        }
+
+        public void AddNewRows(DataGridViewCellCollection cells, string DB, string Table)
+        {
+            string SQLCommandString = $"INSERT INTO {Table} V";
+
+            foreach(DataGridView cell in  cells)
+            {
+
+            }
+
+            foreach (DataGridViewCell cell in cells)
+            {
+                if (cell.ColumnIndex != 0)
+                {
+                    if (cell.Value.ToString() != string.Empty)
+                    {
+                        if (cell.ColumnIndex == 1)
+                        {
+                            SQLCommandString = SQLCommandString + $"'{cell.Value}'";
+                        }
+                        else
+                        {
+                            SQLCommandString = SQLCommandString + $", '{cell.Value}'";
+                        }
+                    }
+                }
+            }
+
+            SQLCommandString = SQLCommandString + ")";
+
+            try
+            {
+                Con.Open();
+                Con.ChangeDatabase(DB);
+                Cmd.CommandText = SQLCommandString;
+                Cmd.ExecuteNonQuery();
+                Con.Close();
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message);
+            }
+        }
     }
 }

@@ -69,7 +69,7 @@ namespace DatabaseManager
 
                 dataGridView = new DataGridView();
                 dataGridView.Dock = DockStyle.Fill;
-                dataGridView.RowsAdded += NewRow;
+                dataGridView.EditMode = DataGridViewEditMode.EditOnEnter;
 
 
                 MainLayoutPanel.Controls.Add(dataGridView, 1, 0);
@@ -79,10 +79,6 @@ namespace DatabaseManager
             }
         }
 
-        private void NewRow(object? sender, DataGridViewRowsAddedEventArgs e)
-        {
-            
-        }
 
         private void Listview_ItemSelectionChanged(object? sender, ListViewItemSelectionChangedEventArgs e)
         {
@@ -93,6 +89,14 @@ namespace DatabaseManager
             TableName = ItemNames[1];
 
             dataGridView.DataSource = SqlController.GetTableContent(DBName, TableName);
+        }
+
+        private void saveToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            foreach(DataGridViewRow row in dataGridView.Rows)
+            {
+                SqlController.UpdateOldRow(row.Cells, DBName, TableName);
+            }
         }
     }
 }

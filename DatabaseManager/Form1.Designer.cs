@@ -36,6 +36,7 @@
             btnCreateTable = new ToolStripMenuItem();
             deleteToolStripMenuItem = new ToolStripMenuItem();
             TabHost = new TabControl();
+            saveToolStripMenuItem = new ToolStripMenuItem();
             toolStrip1.SuspendLayout();
             SuspendLayout();
             // 
@@ -51,7 +52,7 @@
             // toolStripDropDownButton1
             // 
             toolStripDropDownButton1.DisplayStyle = ToolStripItemDisplayStyle.Text;
-            toolStripDropDownButton1.DropDownItems.AddRange(new ToolStripItem[] { createToolStripMenuItem, deleteToolStripMenuItem });
+            toolStripDropDownButton1.DropDownItems.AddRange(new ToolStripItem[] { createToolStripMenuItem, deleteToolStripMenuItem, saveToolStripMenuItem });
             toolStripDropDownButton1.Image = (Image)resources.GetObject("toolStripDropDownButton1.Image");
             toolStripDropDownButton1.ImageTransparentColor = Color.Magenta;
             toolStripDropDownButton1.Name = "toolStripDropDownButton1";
@@ -92,6 +93,13 @@
             TabHost.Size = new Size(800, 425);
             TabHost.TabIndex = 1;
             // 
+            // saveToolStripMenuItem
+            // 
+            saveToolStripMenuItem.Name = "saveToolStripMenuItem";
+            saveToolStripMenuItem.Size = new Size(180, 22);
+            saveToolStripMenuItem.Text = "Save";
+            saveToolStripMenuItem.Click += saveToolStripMenuItem_Click;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -116,5 +124,6 @@
         private ToolStripMenuItem btnCreateTable;
         private ToolStripMenuItem deleteToolStripMenuItem;
         private TabControl TabHost;
+        private ToolStripMenuItem saveToolStripMenuItem;
     }
 }
