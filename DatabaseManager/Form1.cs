@@ -69,7 +69,6 @@ namespace DatabaseManager
 
                 dataGridView = new DataGridView();
                 dataGridView.Dock = DockStyle.Fill;
-                dataGridView.EditMode = DataGridViewEditMode.EditOnEnter;
 
 
                 MainLayoutPanel.Controls.Add(dataGridView, 1, 0);
@@ -93,9 +92,18 @@ namespace DatabaseManager
 
         private void saveToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            foreach(DataGridViewRow row in dataGridView.Rows)
+            SqlDataAdapter DA = dataGridView.DataSource as SqlDataAdapter;
+
+            foreach(DataGridViewRow Row in dataGridView.Rows)
             {
-                SqlController.UpdateOldRow(row.Cells, DBName, TableName);
+                if(Row.IsNewRow)
+                {
+                    SqlController.AddNewRow(DA);
+                }
+                else
+                {
+                   // SqlController.UpdateOldRow(Row.Cells, DBName, TableName);
+                }
             }
         }
     }

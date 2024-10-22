@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.Common;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -64,23 +65,35 @@ namespace DatabaseManager.Classes
             return list;
         }
 
-        public DataTable GetTableContent(string DB, string Table)
+        public SqlDataAdapter GetTableContent(string DB, string Table)
         {
-            DataTable dt = new DataTable();
+            SqlDataAdapter DA = new SqlDataAdapter();
             try
             {
                 Con.Open();
                 Con.ChangeDatabase(DB);
+                SqlCommand SELECTCmd = new SqlCommand($"SELECT * FROM {Table}", Con);
+                SqlCommand INSERTCmd = new SqlCommand($"INSERT INTO {Table} VALUES (")
+
+                /*
+                Con.Open();
+                Con.ChangeDatabase(DB);
                 Cmd.CommandText = $"SELECT * FROM {Table}";
                 Reader = Cmd.ExecuteReader();
+                DataTable dt = new DataTable();
                 dt.Load(Reader);
+                DA.SelectCommand = Cmd;
+                DA.Fill(dt);
+                Con.Close();
+                */
+
                 Con.Close();
             }
             catch (Exception e)
             {
                 MessageBox.Show(e.Message);
             }
-            return dt;
+            return DA;
         }
 
         public void UpdateOldRow(DataGridViewCellCollection cells, string DB, string Table)
@@ -120,14 +133,11 @@ namespace DatabaseManager.Classes
             }
         }
 
-        public void AddNewRows(DataGridViewCellCollection cells, string DB, string Table)
+        public void AddNewRows(DataGridViewRow Row , string DB, string Table)
         {
-            string SQLCommandString = $"INSERT INTO {Table} V";
+            DataGridViewCellCollection cells = Row.Cells;
 
-            foreach(DataGridView cell in  cells)
-            {
-
-            }
+            string SQLCommandString = $"INSERT INTO {Table} VALUES (";
 
             foreach (DataGridViewCell cell in cells)
             {
@@ -162,5 +172,26 @@ namespace DatabaseManager.Classes
                 MessageBox.Show(e.Message);
             }
         }
+
+        public void AddNewRow(SqlDataAdapter DA)
+        {
+            try
+            {
+                Cmd = DA.InsertCommand;
+                Cmd.ExecuteNonQuery();
+            }
+            catch (Exception e)
+            {
+
+            }
+        }
+
+        public void UpdateOldRowToDB(SqlDataAdapter DA)
+        {
+           // Cmd.CommandText = DA.InsertCommand.CommandText;
+            Cmd.ExecuteNonQuery();
+        }
     }
 }
+
+// SQL Data Adapter
