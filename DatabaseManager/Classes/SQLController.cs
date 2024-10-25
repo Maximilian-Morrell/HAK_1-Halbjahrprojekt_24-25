@@ -14,6 +14,7 @@ namespace DatabaseManager.Classes
         private SqlConnection Con;
         private SqlCommand Cmd;
         private SqlDataReader Reader;
+        SqlDataAdapter DA = new SqlDataAdapter();
 
         public SQLController(string ConnectionString)
         {
@@ -65,15 +66,23 @@ namespace DatabaseManager.Classes
             return list;
         }
 
-        public SqlDataAdapter GetTableContent(string DB, string Table)
+        public DataTable GetTableContent(string DB, string Table)
         {
-            SqlDataAdapter DA = new SqlDataAdapter();
+
+            DataTable dt = new DataTable();
             try
             {
                 Con.Open();
                 Con.ChangeDatabase(DB);
-                SqlCommand SELECTCmd = new SqlCommand($"SELECT * FROM {Table}", Con);
-                SqlCommand INSERTCmd = new SqlCommand($"INSERT INTO {Table} VALUES (")
+                Cmd.CommandText = $"SELECT * FROM {Table}";
+                DA.SelectCommand = Cmd;
+                Reader = Cmd.ExecuteReader();
+                dt.Load(Reader);
+                SqlCommandBuilder cmdBuilder = new SqlCommandBuilder(DA);
+                DA.InsertCommand = cmdBuilder.GetInsertCommand();
+                DA.UpdateCommand = cmdBuilder.GetUpdateCommand();
+                DA.DeleteCommand = cmdBuilder.GetDeleteCommand();
+
 
                 /*
                 Con.Open();
@@ -93,11 +102,12 @@ namespace DatabaseManager.Classes
             {
                 MessageBox.Show(e.Message);
             }
-            return DA;
+            return dt;
         }
 
-        public void UpdateOldRow(DataGridViewCellCollection cells, string DB, string Table)
+        public void UpdateOldRow(DataTable cells, string DB, string Table)
         {
+            /*
             string SQLCommandString = $"UPDATE {Table} SET";
             foreach (DataGridViewCell cell in cells)
             {
@@ -131,65 +141,16 @@ namespace DatabaseManager.Classes
             {
                 MessageBox.Show(e.Message);
             }
+            */
         }
 
-        public void AddNewRows(DataGridViewRow Row , string DB, string Table)
+        public void AddNewRows(DataTable Row, string DB, string Table)
         {
-            DataGridViewCellCollection cells = Row.Cells;
-
-            string SQLCommandString = $"INSERT INTO {Table} VALUES (";
-
-            foreach (DataGridViewCell cell in cells)
-            {
-                if (cell.ColumnIndex != 0)
-                {
-                    if (cell.Value.ToString() != string.Empty)
-                    {
-                        if (cell.ColumnIndex == 1)
-                        {
-                            SQLCommandString = SQLCommandString + $"'{cell.Value}'";
-                        }
-                        else
-                        {
-                            SQLCommandString = SQLCommandString + $", '{cell.Value}'";
-                        }
-                    }
-                }
-            }
-
-            SQLCommandString = SQLCommandString + ")";
-
-            try
-            {
-                Con.Open();
-                Con.ChangeDatabase(DB);
-                Cmd.CommandText = SQLCommandString;
-                Cmd.ExecuteNonQuery();
-                Con.Close();
-            }
-            catch (Exception e)
-            {
-                MessageBox.Show(e.Message);
-            }
-        }
-
-        public void AddNewRow(SqlDataAdapter DA)
-        {
-            try
-            {
-                Cmd = DA.InsertCommand;
-                Cmd.ExecuteNonQuery();
-            }
-            catch (Exception e)
-            {
-
-            }
-        }
-
-        public void UpdateOldRowToDB(SqlDataAdapter DA)
-        {
-           // Cmd.CommandText = DA.InsertCommand.CommandText;
-            Cmd.ExecuteNonQuery();
+            Con.Open();
+            Con.ChangeDatabase(DB);
+            int zahl = DA.Update(Row);
+            int Zahl2 = zahl + zahl;
+            Con.Close();
         }
     }
 }

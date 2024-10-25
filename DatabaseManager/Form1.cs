@@ -92,13 +92,13 @@ namespace DatabaseManager
 
         private void saveToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            SqlDataAdapter DA = dataGridView.DataSource as SqlDataAdapter;
+            DataTable DA = dataGridView.DataSource as DataTable;
 
             foreach(DataGridViewRow Row in dataGridView.Rows)
             {
                 if(Row.IsNewRow)
                 {
-                    SqlController.AddNewRow(DA);
+                    SqlController.AddNewRows(DA, DBName, TableName);
                 }
                 else
                 {
