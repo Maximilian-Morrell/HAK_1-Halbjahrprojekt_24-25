@@ -35,8 +35,8 @@
             btnCreateDatabase = new ToolStripMenuItem();
             btnCreateTable = new ToolStripMenuItem();
             deleteToolStripMenuItem = new ToolStripMenuItem();
-            TabHost = new TabControl();
             saveToolStripMenuItem = new ToolStripMenuItem();
+            TabHost = new TabControl();
             toolStrip1.SuspendLayout();
             SuspendLayout();
             // 
@@ -69,20 +69,28 @@
             // btnCreateDatabase
             // 
             btnCreateDatabase.Name = "btnCreateDatabase";
-            btnCreateDatabase.Size = new Size(122, 22);
+            btnCreateDatabase.Size = new Size(180, 22);
             btnCreateDatabase.Text = "Database";
             // 
             // btnCreateTable
             // 
             btnCreateTable.Name = "btnCreateTable";
-            btnCreateTable.Size = new Size(122, 22);
+            btnCreateTable.Size = new Size(180, 22);
             btnCreateTable.Text = "Table";
+            btnCreateTable.Click += btnCreateTable_Click;
             // 
             // deleteToolStripMenuItem
             // 
             deleteToolStripMenuItem.Name = "deleteToolStripMenuItem";
             deleteToolStripMenuItem.Size = new Size(180, 22);
             deleteToolStripMenuItem.Text = "Delete";
+            // 
+            // saveToolStripMenuItem
+            // 
+            saveToolStripMenuItem.Name = "saveToolStripMenuItem";
+            saveToolStripMenuItem.Size = new Size(180, 22);
+            saveToolStripMenuItem.Text = "Save";
+            saveToolStripMenuItem.Click += saveToolStripMenuItem_Click;
             // 
             // TabHost
             // 
@@ -92,13 +100,6 @@
             TabHost.SelectedIndex = 0;
             TabHost.Size = new Size(800, 425);
             TabHost.TabIndex = 1;
-            // 
-            // saveToolStripMenuItem
-            // 
-            saveToolStripMenuItem.Name = "saveToolStripMenuItem";
-            saveToolStripMenuItem.Size = new Size(180, 22);
-            saveToolStripMenuItem.Text = "Save";
-            saveToolStripMenuItem.Click += saveToolStripMenuItem_Click;
             // 
             // Form1
             // 

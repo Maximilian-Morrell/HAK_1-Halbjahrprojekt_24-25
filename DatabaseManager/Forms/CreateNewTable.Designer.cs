@@ -28,31 +28,33 @@
         /// </summary>
         private void InitializeComponent()
         {
-            tableLayoutPanel1 = new TableLayoutPanel();
+            parent = new TableLayoutPanel();
             btnAddNewColumn = new Button();
-            tableLayoutPanel1.SuspendLayout();
+            ColumnParent = new FlowLayoutPanel();
+            parent.SuspendLayout();
             SuspendLayout();
             // 
-            // tableLayoutPanel1
+            // parent
             // 
-            tableLayoutPanel1.ColumnCount = 2;
-            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
-            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
-            tableLayoutPanel1.Controls.Add(btnAddNewColumn, 0, 2);
-            tableLayoutPanel1.Dock = DockStyle.Fill;
-            tableLayoutPanel1.Location = new Point(0, 0);
-            tableLayoutPanel1.Name = "tableLayoutPanel1";
-            tableLayoutPanel1.RowCount = 4;
-            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 25F));
-            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 25F));
-            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 25F));
-            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 25F));
-            tableLayoutPanel1.Size = new Size(800, 450);
-            tableLayoutPanel1.TabIndex = 0;
+            parent.ColumnCount = 2;
+            parent.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+            parent.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+            parent.Controls.Add(btnAddNewColumn, 0, 2);
+            parent.Controls.Add(ColumnParent, 0, 1);
+            parent.Dock = DockStyle.Fill;
+            parent.Location = new Point(0, 0);
+            parent.Name = "parent";
+            parent.RowCount = 4;
+            parent.RowStyles.Add(new RowStyle(SizeType.Percent, 25F));
+            parent.RowStyles.Add(new RowStyle(SizeType.Percent, 25F));
+            parent.RowStyles.Add(new RowStyle(SizeType.Percent, 25F));
+            parent.RowStyles.Add(new RowStyle(SizeType.Percent, 25F));
+            parent.Size = new Size(800, 450);
+            parent.TabIndex = 0;
             // 
             // btnAddNewColumn
             // 
-            tableLayoutPanel1.SetColumnSpan(btnAddNewColumn, 2);
+            parent.SetColumnSpan(btnAddNewColumn, 2);
             btnAddNewColumn.Dock = DockStyle.Fill;
             btnAddNewColumn.Location = new Point(3, 227);
             btnAddNewColumn.Name = "btnAddNewColumn";
@@ -62,22 +64,33 @@
             btnAddNewColumn.UseVisualStyleBackColor = true;
             btnAddNewColumn.Click += btnAddNewColumn_Click;
             // 
+            // ColumnParent
+            // 
+            ColumnParent.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            parent.SetColumnSpan(ColumnParent, 2);
+            ColumnParent.Dock = DockStyle.Fill;
+            ColumnParent.Location = new Point(3, 115);
+            ColumnParent.Name = "ColumnParent";
+            ColumnParent.Size = new Size(794, 106);
+            ColumnParent.TabIndex = 2;
+            // 
             // CreateNewTable
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
-            Controls.Add(tableLayoutPanel1);
+            Controls.Add(parent);
             Name = "CreateNewTable";
             Text = "CreateNewTable";
-            tableLayoutPanel1.ResumeLayout(false);
+            parent.ResumeLayout(false);
             ResumeLayout(false);
         }
 
         #endregion
 
-        private TableLayoutPanel tableLayoutPanel1;
+        private TableLayoutPanel parent;
         private Button btnAddNewColumn;
         private DataGridView dataGridView1;
+        private FlowLayoutPanel ColumnParent;
     }
 }

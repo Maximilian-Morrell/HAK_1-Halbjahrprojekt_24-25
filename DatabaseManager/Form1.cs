@@ -1,4 +1,5 @@
 using DatabaseManager.Classes;
+using DatabaseManager.Forms;
 using Microsoft.Data.SqlClient;
 using System.Data;
 
@@ -94,17 +95,23 @@ namespace DatabaseManager
         {
             DataTable DA = dataGridView.DataSource as DataTable;
 
-            foreach(DataGridViewRow Row in dataGridView.Rows)
+            foreach (DataGridViewRow Row in dataGridView.Rows)
             {
-                if(Row.IsNewRow)
+                if (Row.IsNewRow)
                 {
                     SqlController.AddNewRows(DA, DBName, TableName);
                 }
                 else
                 {
-                   // SqlController.UpdateOldRow(Row.Cells, DBName, TableName);
+                    // SqlController.UpdateOldRow(Row.Cells, DBName, TableName);
                 }
             }
+        }
+
+        private void btnCreateTable_Click(object sender, EventArgs e)
+        {
+            CreateNewTable createNewTable = new CreateNewTable();
+            createNewTable.Show();
         }
     }
 }
