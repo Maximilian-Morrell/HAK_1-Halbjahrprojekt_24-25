@@ -146,11 +146,31 @@ namespace DatabaseManager.Classes
 
         public void AddNewRows(DataTable Row, string DB, string Table)
         {
-            Con.Open();
-            Con.ChangeDatabase(DB);
-            int zahl = DA.Update(Row);
-            int Zahl2 = zahl + zahl;
-            Con.Close();
+            try
+            {
+                Con.Open();
+                Con.ChangeDatabase(DB);
+                int zahl = DA.Update(Row);
+                int Zahl2 = zahl + zahl;
+                Con.Close();
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message);
+            }
+        }
+
+        public void AddNewTable(TableObject Table)
+        {
+            try
+            {
+                Con.Open();
+                Cmd.CommandText = $"CREATE TABLE {Table.Name} ({Table.Rows[0].Name} Int NOT NULL PRIMARY KEY IDENTITY, ";
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message);
+            }
         }
     }
 }
