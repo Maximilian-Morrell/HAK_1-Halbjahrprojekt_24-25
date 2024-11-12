@@ -165,7 +165,25 @@ namespace DatabaseManager.Classes
             try
             {
                 Con.Open();
-                Cmd.CommandText = $"CREATE TABLE {Table.Name} ({Table.Rows[0].Name} Int NOT NULL PRIMARY KEY IDENTITY, ";
+                Con.ChangeDatabase(Table.Database);
+                string Cmdtxt = $"CREATE TABLE {Table.Name} ({Table.Rows[0].Name} Int NOT NULL PRIMARY KEY IDENTITY, ";
+                Table.Rows.RemoveAt(0);
+                foreach(RowObject Row in Table.Rows)
+                {
+                    if(Row.CanBeNull)
+                    {
+                        Cmdtxt = Cmdtxt + Row.Name + " " + Row.Type + ", ";
+                    }
+                    else
+                    {
+                        Cmdtxt = Cmdtxt + Row.Name + " " + Row.Type + " NOT NULL" + ", ";
+                    }
+                }
+                Cmdtxt = Cmdtxt.Remove(Cmdtxt.Length - 2);
+                Cmdtxt = Cmdtxt + ")";
+                Cmd.CommandText = Cmdtxt;
+                Cmd.ExecuteNonQuery();
+                Con.Close();
             }
             catch (Exception e)
             {

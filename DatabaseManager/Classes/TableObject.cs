@@ -9,6 +9,7 @@ namespace DatabaseManager.Classes
     public class TableObject
     {
         private string _Name;
+        private string _Database;
         private List<RowObject> _Rows;
 
         public string Name
@@ -20,6 +21,18 @@ namespace DatabaseManager.Classes
             set
             {
                 _Name = value;
+            }
+        }
+
+        public string Database
+        {
+            get
+            {
+                return _Database;
+            }
+            set
+            {
+                _Database = value;
             }
         }
 
@@ -35,10 +48,11 @@ namespace DatabaseManager.Classes
             }
         }
 
-        public TableObject(string Name)
+        public TableObject(string Name, string Database)
         {
             this.Name = Name;
             this.Rows = new List<RowObject>();
+            this.Database = Database;
         }
     }
 }

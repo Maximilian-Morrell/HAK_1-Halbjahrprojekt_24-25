@@ -13,15 +13,24 @@ namespace DatabaseManager.Forms
 {
     public partial class CreateNewTable : Form
     {
-        List<TableLayoutPanel> tableLayoutPanels = new List<TableLayoutPanel>();
+        public List<TableLayoutPanel> tableLayoutPanels = new List<TableLayoutPanel>();
         string[] datatypes = Enum.GetNames<SqlDbType>();
 
         public CreateNewTable()
         {
             InitializeComponent();
-            ColumnParent.AutoScroll = true;
-            CreateIDColumn();
+        }
 
+        public CreateNewTable(List<string> Databases)
+        {
+            InitializeComponent();
+            ColumnParent.AutoScroll = true;
+
+            foreach (string Database in Databases)
+            {
+                comboBoxDataBase.Items.Add(Database);
+            }
+            CreateIDColumn();
         }
 
         private void btnAddNewColumn_Click(object sender, EventArgs e)
@@ -69,6 +78,7 @@ namespace DatabaseManager.Forms
             {
                 comboBoxDataType.Items.Add(DataType);
             }
+
             tableLayoutPanel.Controls.Add(comboBoxDataType, 2, 1);
             ColumnParent.Controls.Add(tableLayoutPanel);
             tableLayoutPanels.Add(tableLayoutPanel);
@@ -120,19 +130,6 @@ namespace DatabaseManager.Forms
             tableLayoutPanel.Controls.Add(comboBoxDataType, 2, 1);
             ColumnParent.Controls.Add(tableLayoutPanel);
             tableLayoutPanels.Add(tableLayoutPanel);
-        }
-
-        private void btnCreateTable_Click(object sender, EventArgs e)
-        {
-            TableObject table = new TableObject(txtBoxTableName.Text);
-            foreach(TableLayoutPanel tableLayoutPanel in tableLayoutPanels)
-            {
-                TextBox txtBoxName = tableLayoutPanel.Controls[3] as TextBox;
-                CheckBox CanBeNull = tableLayoutPanel.Controls[4] as CheckBox;
-                ComboBox TypeBox = tableLayoutPanel.Controls[5] as ComboBox;
-                RowObject row = new RowObject(txtBoxName.Text, CanBeNull.Checked, TypeBox.SelectedItem as string);
-                table.Rows.Add(row);
-            }
         }
     }
 }

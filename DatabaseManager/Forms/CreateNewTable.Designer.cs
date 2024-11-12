@@ -31,10 +31,14 @@
             parent = new TableLayoutPanel();
             btnAddNewColumn = new Button();
             ColumnParent = new FlowLayoutPanel();
-            label1 = new Label();
-            txtBoxTableName = new TextBox();
             btnCreateTable = new Button();
+            tableLayoutPanel1 = new TableLayoutPanel();
+            label2 = new Label();
+            txtBoxTableName = new TextBox();
+            label1 = new Label();
+            comboBoxDataBase = new ComboBox();
             parent.SuspendLayout();
+            tableLayoutPanel1.SuspendLayout();
             SuspendLayout();
             // 
             // parent
@@ -44,15 +48,14 @@
             parent.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
             parent.Controls.Add(btnAddNewColumn, 0, 2);
             parent.Controls.Add(ColumnParent, 0, 1);
-            parent.Controls.Add(label1, 0, 0);
-            parent.Controls.Add(txtBoxTableName, 1, 0);
             parent.Controls.Add(btnCreateTable, 0, 3);
+            parent.Controls.Add(tableLayoutPanel1, 0, 0);
             parent.Dock = DockStyle.Fill;
             parent.Location = new Point(0, 0);
             parent.Name = "parent";
             parent.RowCount = 4;
-            parent.RowStyles.Add(new RowStyle(SizeType.Percent, 9.777778F));
-            parent.RowStyles.Add(new RowStyle(SizeType.Percent, 70.22222F));
+            parent.RowStyles.Add(new RowStyle(SizeType.Percent, 14F));
+            parent.RowStyles.Add(new RowStyle(SizeType.Percent, 66F));
             parent.RowStyles.Add(new RowStyle(SizeType.Percent, 9.777778F));
             parent.RowStyles.Add(new RowStyle(SizeType.Percent, 10F));
             parent.Size = new Size(800, 450);
@@ -75,29 +78,10 @@
             ColumnParent.AutoSizeMode = AutoSizeMode.GrowAndShrink;
             parent.SetColumnSpan(ColumnParent, 2);
             ColumnParent.Dock = DockStyle.Fill;
-            ColumnParent.Location = new Point(3, 47);
+            ColumnParent.Location = new Point(3, 66);
             ColumnParent.Name = "ColumnParent";
-            ColumnParent.Size = new Size(794, 310);
+            ColumnParent.Size = new Size(794, 291);
             ColumnParent.TabIndex = 2;
-            // 
-            // label1
-            // 
-            label1.AutoSize = true;
-            label1.Dock = DockStyle.Fill;
-            label1.Location = new Point(3, 0);
-            label1.Name = "label1";
-            label1.Size = new Size(394, 44);
-            label1.TabIndex = 3;
-            label1.Text = "Tablename:";
-            label1.TextAlign = ContentAlignment.MiddleRight;
-            // 
-            // txtBoxTableName
-            // 
-            txtBoxTableName.Dock = DockStyle.Fill;
-            txtBoxTableName.Location = new Point(403, 3);
-            txtBoxTableName.Name = "txtBoxTableName";
-            txtBoxTableName.Size = new Size(394, 23);
-            txtBoxTableName.TabIndex = 4;
             // 
             // btnCreateTable
             // 
@@ -109,7 +93,65 @@
             btnCreateTable.TabIndex = 5;
             btnCreateTable.Text = "Create Table";
             btnCreateTable.UseVisualStyleBackColor = true;
-            btnCreateTable.Click += btnCreateTable_Click;
+            // 
+            // tableLayoutPanel1
+            // 
+            tableLayoutPanel1.ColumnCount = 2;
+            parent.SetColumnSpan(tableLayoutPanel1, 2);
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+            tableLayoutPanel1.Controls.Add(label2, 0, 0);
+            tableLayoutPanel1.Controls.Add(txtBoxTableName, 1, 1);
+            tableLayoutPanel1.Controls.Add(label1, 0, 1);
+            tableLayoutPanel1.Controls.Add(comboBoxDataBase, 1, 0);
+            tableLayoutPanel1.Dock = DockStyle.Fill;
+            tableLayoutPanel1.Location = new Point(3, 3);
+            tableLayoutPanel1.Name = "tableLayoutPanel1";
+            tableLayoutPanel1.RowCount = 2;
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
+            tableLayoutPanel1.Size = new Size(794, 57);
+            tableLayoutPanel1.TabIndex = 6;
+            // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.Dock = DockStyle.Fill;
+            label2.Location = new Point(3, 0);
+            label2.Name = "label2";
+            label2.Size = new Size(391, 28);
+            label2.TabIndex = 8;
+            label2.Text = "Database:";
+            label2.TextAlign = ContentAlignment.MiddleRight;
+            // 
+            // txtBoxTableName
+            // 
+            txtBoxTableName.Dock = DockStyle.Fill;
+            txtBoxTableName.Location = new Point(400, 31);
+            txtBoxTableName.Name = "txtBoxTableName";
+            txtBoxTableName.Size = new Size(391, 23);
+            txtBoxTableName.TabIndex = 7;
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Dock = DockStyle.Fill;
+            label1.Location = new Point(3, 28);
+            label1.Name = "label1";
+            label1.Size = new Size(391, 29);
+            label1.TabIndex = 5;
+            label1.Text = "Tablename:";
+            label1.TextAlign = ContentAlignment.MiddleRight;
+            // 
+            // comboBoxDataBase
+            // 
+            comboBoxDataBase.Dock = DockStyle.Fill;
+            comboBoxDataBase.FormattingEnabled = true;
+            comboBoxDataBase.Location = new Point(400, 3);
+            comboBoxDataBase.Name = "comboBoxDataBase";
+            comboBoxDataBase.Size = new Size(391, 23);
+            comboBoxDataBase.TabIndex = 9;
             // 
             // CreateNewTable
             // 
@@ -120,7 +162,8 @@
             Name = "CreateNewTable";
             Text = "CreateNewTable";
             parent.ResumeLayout(false);
-            parent.PerformLayout();
+            tableLayoutPanel1.ResumeLayout(false);
+            tableLayoutPanel1.PerformLayout();
             ResumeLayout(false);
         }
 
@@ -130,8 +173,11 @@
         private Button btnAddNewColumn;
         private DataGridView dataGridView1;
         private FlowLayoutPanel ColumnParent;
+        public Button btnCreateTable;
+        private TableLayoutPanel tableLayoutPanel1;
+        private Label label2;
+        public TextBox txtBoxTableName;
         private Label label1;
-        private TextBox txtBoxTableName;
-        private Button btnCreateTable;
+        public ComboBox comboBoxDataBase;
     }
 }

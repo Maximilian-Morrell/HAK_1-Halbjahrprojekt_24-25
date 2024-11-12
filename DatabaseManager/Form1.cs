@@ -2,6 +2,7 @@ using DatabaseManager.Classes;
 using DatabaseManager.Forms;
 using Microsoft.Data.SqlClient;
 using System.Data;
+using System.Windows.Forms;
 
 namespace DatabaseManager
 {
@@ -9,6 +10,7 @@ namespace DatabaseManager
     {
         SQLController SqlController;
         LogInWindows LogInScreen = new LogInWindows();
+        CreateNewTable createNewTable;
         DataGridView dataGridView;
         string DBName;
         string TableName;
@@ -63,6 +65,8 @@ namespace DatabaseManager
                     listview.Items.Add(lvi);
                     listview.Dock = DockStyle.Fill;
                 }
+                listview.ContextMenuStrip.Items.Add("Delete Datatable");
+                listview.ContextMenuStrip.ItemClicked += DataBaseEditContextMenuClicked;
                 listview.ItemSelectionChanged += Listview_ItemSelectionChanged;
 
                 MainLayoutPanel.Controls.Add(listview, 0, 0);
@@ -79,6 +83,10 @@ namespace DatabaseManager
             }
         }
 
+        private void DataBaseEditContextMenuClicked(object? sender, ToolStripItemClickedEventArgs e)
+        {
+            
+        }
 
         private void Listview_ItemSelectionChanged(object? sender, ListViewItemSelectionChangedEventArgs e)
         {
@@ -110,8 +118,29 @@ namespace DatabaseManager
 
         private void btnCreateTable_Click(object sender, EventArgs e)
         {
-            CreateNewTable createNewTable = new CreateNewTable();
+            createNewTable = new CreateNewTable(Databases);
+            createNewTable.btnCreateTable.Click += BtnCreateTable_Click;
             createNewTable.Show();
+        }
+
+        private void BtnCreateTable_Click(object? sender, EventArgs e)
+        {
+            TableObject table = new TableObject(createNewTable.txtBoxTableName.Text, createNewTable.comboBoxDataBase.SelectedItem as string);
+            foreach (TableLayoutPanel tableLayoutPanel in createNewTable.tableLayoutPanels)
+            {
+                TextBox txtBoxName = tableLayoutPanel.Controls[3] as TextBox;
+                CheckBox CanBeNull = tableLayoutPanel.Controls[4] as CheckBox;
+                ComboBox TypeBox = tableLayoutPanel.Controls[5] as ComboBox;
+                RowObject row = new RowObject(txtBoxName.Text, CanBeNull.Checked, TypeBox.SelectedItem as string);
+                table.Rows.Add(row);
+            }
+
+            SqlController.AddNewTable(table);
+        }
+
+        private void contextMenuStrip1_Opening(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+
         }
     }
 }
