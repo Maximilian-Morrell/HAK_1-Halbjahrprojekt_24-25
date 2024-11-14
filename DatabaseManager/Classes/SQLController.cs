@@ -190,6 +190,36 @@ namespace DatabaseManager.Classes
                 MessageBox.Show(e.Message);
             }
         }
+
+        public void CreateNewDB(string DBName)
+        {
+            try
+            {
+                Con.Open();
+                Cmd.CommandText = $"CREATE DATABASE {DBName}";
+                Cmd.ExecuteNonQuery();
+                Con.Close();
+            }
+            catch (Exception e)
+            {
+
+            }
+        }
+
+        public void DeleteDB(string DBName)
+        {
+            try
+            {
+                Con.Open();
+                Cmd.CommandText = $"DROP DATABASE {DBName}";
+                Cmd.ExecuteNonQuery();
+                Con.Close();
+            }
+            catch (Exception e)
+            {
+
+            }
+        }
     }
 }
 

@@ -9,6 +9,8 @@ namespace DatabaseManager
     public partial class Form1 : Form
     {
         SQLController SqlController;
+        CreateNewDataBase DatabaseForm;
+        DeleteDB deleteDB;
         LogInWindows LogInScreen = new LogInWindows();
         CreateNewTable createNewTable;
         DataGridView dataGridView;
@@ -39,6 +41,13 @@ namespace DatabaseManager
             MessageBox.Show("Successfully connected to: " + LogInScreen.txtBoxIPAdress.Text, "Successfully Connected");
             LogInScreen.Close();
             WindowState = FormWindowState.Normal;
+
+            LoadDBs();
+        }
+
+        public void LoadDBs()
+        {
+            TabHost.TabPages.Clear();
             Databases = SqlController.GetDatabases();
 
             foreach (string db in HiddenDBs)
@@ -65,8 +74,6 @@ namespace DatabaseManager
                     listview.Items.Add(lvi);
                     listview.Dock = DockStyle.Fill;
                 }
-                listview.ContextMenuStrip.Items.Add("Delete Datatable");
-                listview.ContextMenuStrip.ItemClicked += DataBaseEditContextMenuClicked;
                 listview.ItemSelectionChanged += Listview_ItemSelectionChanged;
 
                 MainLayoutPanel.Controls.Add(listview, 0, 0);
@@ -81,11 +88,6 @@ namespace DatabaseManager
                 tabPage.Controls.Add(MainLayoutPanel);
                 TabHost.TabPages.Add(tabPage);
             }
-        }
-
-        private void DataBaseEditContextMenuClicked(object? sender, ToolStripItemClickedEventArgs e)
-        {
-            
         }
 
         private void Listview_ItemSelectionChanged(object? sender, ListViewItemSelectionChangedEventArgs e)
@@ -120,7 +122,7 @@ namespace DatabaseManager
         {
             createNewTable = new CreateNewTable(Databases);
             createNewTable.btnCreateTable.Click += BtnCreateTable_Click;
-            createNewTable.Show();
+            createNewTable.ShowDialog();
         }
 
         private void BtnCreateTable_Click(object? sender, EventArgs e)
@@ -136,11 +138,33 @@ namespace DatabaseManager
             }
 
             SqlController.AddNewTable(table);
+            LoadDBs();
         }
 
-        private void contextMenuStrip1_Opening(object sender, System.ComponentModel.CancelEventArgs e)
+        private void btnCreateDatabase_Click(object sender, EventArgs e)
         {
+            DatabaseForm = new CreateNewDataBase();
+            DatabaseForm.btnCreateDB.Click += BtnCreateDB_Click;
+            DatabaseForm.ShowDialog();
+        }
 
+        private void BtnCreateDB_Click(object? sender, EventArgs e)
+        {
+            SqlController.CreateNewDB(DatabaseForm.txtBoxDBName.Text);
+            LoadDBs();
+        }
+
+        private void btnDataBaseDelete_Click(object sender, EventArgs e)
+        {
+            deleteDB = new DeleteDB(Databases);
+            deleteDB.btnDelete.Click += BtnDelete_Click;
+            deleteDB.ShowDialog();
+        }
+
+        private void BtnDelete_Click(object? sender, EventArgs e)
+        {
+            SqlController.DeleteDB(deleteDB.comboBoxDataBase.SelectedItem as string);
+            LoadDBs();
         }
     }
 }
