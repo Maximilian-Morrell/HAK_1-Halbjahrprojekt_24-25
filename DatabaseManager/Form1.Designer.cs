@@ -36,11 +36,14 @@
             btnCreateDatabase = new ToolStripMenuItem();
             btnCreateTable = new ToolStripMenuItem();
             deleteToolStripMenuItem = new ToolStripMenuItem();
+            btnDataBaseDelete = new ToolStripMenuItem();
+            btnTableDelete = new ToolStripMenuItem();
             saveToolStripMenuItem = new ToolStripMenuItem();
             TabHost = new TabControl();
             contextMenuDelete = new ContextMenuStrip(components);
-            btnDataBaseDelete = new ToolStripMenuItem();
-            btnTableDelete = new ToolStripMenuItem();
+            editToolStripMenuItem = new ToolStripMenuItem();
+            btnRenameDB = new ToolStripMenuItem();
+            editTableToolStripMenuItem = new ToolStripMenuItem();
             toolStrip1.SuspendLayout();
             SuspendLayout();
             // 
@@ -56,7 +59,7 @@
             // toolStripDropDownButton1
             // 
             toolStripDropDownButton1.DisplayStyle = ToolStripItemDisplayStyle.Text;
-            toolStripDropDownButton1.DropDownItems.AddRange(new ToolStripItem[] { createToolStripMenuItem, deleteToolStripMenuItem, saveToolStripMenuItem });
+            toolStripDropDownButton1.DropDownItems.AddRange(new ToolStripItem[] { createToolStripMenuItem, deleteToolStripMenuItem, saveToolStripMenuItem, editToolStripMenuItem });
             toolStripDropDownButton1.Image = (Image)resources.GetObject("toolStripDropDownButton1.Image");
             toolStripDropDownButton1.ImageTransparentColor = Color.Magenta;
             toolStripDropDownButton1.Name = "toolStripDropDownButton1";
@@ -73,14 +76,14 @@
             // btnCreateDatabase
             // 
             btnCreateDatabase.Name = "btnCreateDatabase";
-            btnCreateDatabase.Size = new Size(180, 22);
+            btnCreateDatabase.Size = new Size(122, 22);
             btnCreateDatabase.Text = "Database";
             btnCreateDatabase.Click += btnCreateDatabase_Click;
             // 
             // btnCreateTable
             // 
             btnCreateTable.Name = "btnCreateTable";
-            btnCreateTable.Size = new Size(180, 22);
+            btnCreateTable.Size = new Size(122, 22);
             btnCreateTable.Text = "Table";
             btnCreateTable.Click += btnCreateTable_Click;
             // 
@@ -90,6 +93,20 @@
             deleteToolStripMenuItem.Name = "deleteToolStripMenuItem";
             deleteToolStripMenuItem.Size = new Size(180, 22);
             deleteToolStripMenuItem.Text = "Delete";
+            // 
+            // btnDataBaseDelete
+            // 
+            btnDataBaseDelete.Name = "btnDataBaseDelete";
+            btnDataBaseDelete.Size = new Size(180, 22);
+            btnDataBaseDelete.Text = "Database";
+            btnDataBaseDelete.Click += btnDataBaseDelete_Click;
+            // 
+            // btnTableDelete
+            // 
+            btnTableDelete.Name = "btnTableDelete";
+            btnTableDelete.Size = new Size(180, 22);
+            btnTableDelete.Text = "Table";
+            btnTableDelete.Click += btnTableDelete_Click;
             // 
             // saveToolStripMenuItem
             // 
@@ -112,18 +129,25 @@
             contextMenuDelete.Name = "contextMenuDelete";
             contextMenuDelete.Size = new Size(61, 4);
             // 
-            // btnDataBaseDelete
+            // editToolStripMenuItem
             // 
-            btnDataBaseDelete.Name = "btnDataBaseDelete";
-            btnDataBaseDelete.Size = new Size(180, 22);
-            btnDataBaseDelete.Text = "Database";
-            btnDataBaseDelete.Click += btnDataBaseDelete_Click;
+            editToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { btnRenameDB, editTableToolStripMenuItem });
+            editToolStripMenuItem.Name = "editToolStripMenuItem";
+            editToolStripMenuItem.Size = new Size(180, 22);
+            editToolStripMenuItem.Text = "Edit";
             // 
-            // btnTableDelete
+            // btnRenameDB
             // 
-            btnTableDelete.Name = "btnTableDelete";
-            btnTableDelete.Size = new Size(180, 22);
-            btnTableDelete.Text = "Table";
+            btnRenameDB.Name = "btnRenameDB";
+            btnRenameDB.Size = new Size(180, 22);
+            btnRenameDB.Text = "RenameDB";
+            btnRenameDB.Click += btnRenameDB_Click;
+            // 
+            // editTableToolStripMenuItem
+            // 
+            editTableToolStripMenuItem.Name = "editTableToolStripMenuItem";
+            editTableToolStripMenuItem.Size = new Size(180, 22);
+            editTableToolStripMenuItem.Text = "EditTable";
             // 
             // Form1
             // 
@@ -153,5 +177,8 @@
         private ContextMenuStrip contextMenuDelete;
         private ToolStripMenuItem btnDataBaseDelete;
         private ToolStripMenuItem btnTableDelete;
+        private ToolStripMenuItem editToolStripMenuItem;
+        private ToolStripMenuItem btnRenameDB;
+        private ToolStripMenuItem editTableToolStripMenuItem;
     }
 }

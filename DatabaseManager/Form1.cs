@@ -11,9 +11,11 @@ namespace DatabaseManager
         SQLController SqlController;
         CreateNewDataBase DatabaseForm;
         DeleteDB deleteDB;
+        DeleteTable deleteTable;
+        RenameDB renameDB;
         LogInWindows LogInScreen = new LogInWindows();
         CreateNewTable createNewTable;
-        DataGridView dataGridView;
+        List<DataGridView> dataGridViews;
         string DBName;
         string TableName;
         List<string> Databases = new List<string>();
@@ -55,6 +57,7 @@ namespace DatabaseManager
                 Databases.Remove(db);
             }
 
+            dataGridViews = new List<DataGridView>();
             foreach (string database in Databases)
             {
                 TabPage tabPage = new TabPage();
@@ -79,11 +82,12 @@ namespace DatabaseManager
                 MainLayoutPanel.Controls.Add(listview, 0, 0);
                 MainLayoutPanel.Dock = DockStyle.Fill;
 
-                dataGridView = new DataGridView();
+                DataGridView dataGridView = new DataGridView();
                 dataGridView.Dock = DockStyle.Fill;
 
 
                 MainLayoutPanel.Controls.Add(dataGridView, 1, 0);
+                dataGridViews.Add(dataGridView);
 
                 tabPage.Controls.Add(MainLayoutPanel);
                 TabHost.TabPages.Add(tabPage);
@@ -92,6 +96,8 @@ namespace DatabaseManager
 
         private void Listview_ItemSelectionChanged(object? sender, ListViewItemSelectionChangedEventArgs e)
         {
+            DataGridView dataGridView = dataGridViews[TabHost.SelectedIndex];
+
             string Itemname = e.Item.Name.ToString();
             string[] ItemNames = Itemname.Split("_");
 
@@ -103,6 +109,7 @@ namespace DatabaseManager
 
         private void saveToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            DataGridView dataGridView = dataGridViews[TabHost.SelectedIndex];
             DataTable DA = dataGridView.DataSource as DataTable;
 
             foreach (DataGridViewRow Row in dataGridView.Rows)
@@ -165,6 +172,35 @@ namespace DatabaseManager
         {
             SqlController.DeleteDB(deleteDB.comboBoxDataBase.SelectedItem as string);
             LoadDBs();
+            deleteDB.UpdateDBs(Databases);
+        }
+
+        private void btnTableDelete_Click(object sender, EventArgs e)
+        {
+            deleteTable = new DeleteTable(Databases, SqlController);
+            deleteTable.btnDeleteTable.Click += BtnDeleteTable_Click;
+            deleteTable.ShowDialog();
+        }
+
+        private void BtnDeleteTable_Click(object? sender, EventArgs e)
+        {
+            SqlController.DeleteTable(deleteTable.comboBoxDataBase.SelectedItem as string, deleteTable.comboBoxTable.SelectedItem as string);
+            LoadDBs();
+            deleteTable.UpdateTables();
+        }
+
+        private void btnRenameDB_Click(object sender, EventArgs e)
+        {
+            renameDB = new RenameDB(Databases);
+            renameDB.btnRenameDB.Click += BtnRenameDB_Click;
+            renameDB.ShowDialog();
+        }
+
+        private void BtnRenameDB_Click(object? sender, EventArgs e)
+        {
+            SqlController.UpdateDBName(renameDB.comboBoxDataBase.SelectedItem as string, renameDB.txtBoxNewName.Text);
+            LoadDBs();
+            renameDB.UpdateDBs(Databases);
         }
     }
 }

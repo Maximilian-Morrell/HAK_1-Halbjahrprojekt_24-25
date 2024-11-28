@@ -220,6 +220,37 @@ namespace DatabaseManager.Classes
 
             }
         }
+
+        public void DeleteTable(string DBName,  string TableName)
+        {
+            try
+            {
+                Con.Open();
+                Con.ChangeDatabase(DBName);
+                Cmd.CommandText = $"DROP TABLE {TableName}";
+                Cmd.ExecuteNonQuery();
+                Con.Close();
+            }
+            catch (Exception e)
+            {
+
+            }
+        }
+
+        public void UpdateDBName(string oldDBName, string NewDBName)
+        {
+            try
+            {
+                Con.Open();
+                Cmd.CommandText = $"ALTER DATABASE {oldDBName} MODIFY NAME = {NewDBName};";
+                Cmd.ExecuteNonQuery();
+                Con.Close();
+            }
+            catch (Exception e)
+            {
+
+            }
+        }
     }
 }
 

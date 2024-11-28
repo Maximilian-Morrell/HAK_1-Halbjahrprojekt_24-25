@@ -10,25 +10,25 @@ using System.Windows.Forms;
 
 namespace DatabaseManager.Forms
 {
-    public partial class DeleteDB : Form
+    public partial class RenameDB : Form
     {
-        public DeleteDB()
+        public RenameDB()
         {
             InitializeComponent();
         }
 
-        public DeleteDB(List<string> DataBases)
+        public RenameDB(List<string> DBs)
         {
             InitializeComponent();
-            UpdateDBs(DataBases);
+            UpdateDBs(DBs);
         }
 
-        public void UpdateDBs(List<string> DataBases)
+        public void UpdateDBs(List<string> DBs)
         {
             comboBoxDataBase.Items.Clear();
-            foreach (string Database in DataBases)
+            foreach(string DB in DBs)
             {
-                comboBoxDataBase.Items.Add(Database);
+                comboBoxDataBase.Items.Add(DB);
             }
         }
     }
