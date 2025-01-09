@@ -39,11 +39,11 @@
             btnDataBaseDelete = new ToolStripMenuItem();
             btnTableDelete = new ToolStripMenuItem();
             saveToolStripMenuItem = new ToolStripMenuItem();
-            TabHost = new TabControl();
-            contextMenuDelete = new ContextMenuStrip(components);
             editToolStripMenuItem = new ToolStripMenuItem();
             btnRenameDB = new ToolStripMenuItem();
-            editTableToolStripMenuItem = new ToolStripMenuItem();
+            TabHost = new TabControl();
+            contextMenuDelete = new ContextMenuStrip(components);
+            tablesToolStripMenuItem = new ToolStripMenuItem();
             toolStrip1.SuspendLayout();
             SuspendLayout();
             // 
@@ -97,14 +97,14 @@
             // btnDataBaseDelete
             // 
             btnDataBaseDelete.Name = "btnDataBaseDelete";
-            btnDataBaseDelete.Size = new Size(180, 22);
+            btnDataBaseDelete.Size = new Size(122, 22);
             btnDataBaseDelete.Text = "Database";
             btnDataBaseDelete.Click += btnDataBaseDelete_Click;
             // 
             // btnTableDelete
             // 
             btnTableDelete.Name = "btnTableDelete";
-            btnTableDelete.Size = new Size(180, 22);
+            btnTableDelete.Size = new Size(122, 22);
             btnTableDelete.Text = "Table";
             btnTableDelete.Click += btnTableDelete_Click;
             // 
@@ -114,6 +114,20 @@
             saveToolStripMenuItem.Size = new Size(180, 22);
             saveToolStripMenuItem.Text = "Save";
             saveToolStripMenuItem.Click += saveToolStripMenuItem_Click;
+            // 
+            // editToolStripMenuItem
+            // 
+            editToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { btnRenameDB, tablesToolStripMenuItem });
+            editToolStripMenuItem.Name = "editToolStripMenuItem";
+            editToolStripMenuItem.Size = new Size(180, 22);
+            editToolStripMenuItem.Text = "Edit";
+            // 
+            // btnRenameDB
+            // 
+            btnRenameDB.Name = "btnRenameDB";
+            btnRenameDB.Size = new Size(180, 22);
+            btnRenameDB.Text = "RenameDB";
+            btnRenameDB.Click += btnRenameDB_Click;
             // 
             // TabHost
             // 
@@ -129,25 +143,12 @@
             contextMenuDelete.Name = "contextMenuDelete";
             contextMenuDelete.Size = new Size(61, 4);
             // 
-            // editToolStripMenuItem
+            // tablesToolStripMenuItem
             // 
-            editToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { btnRenameDB, editTableToolStripMenuItem });
-            editToolStripMenuItem.Name = "editToolStripMenuItem";
-            editToolStripMenuItem.Size = new Size(180, 22);
-            editToolStripMenuItem.Text = "Edit";
-            // 
-            // btnRenameDB
-            // 
-            btnRenameDB.Name = "btnRenameDB";
-            btnRenameDB.Size = new Size(180, 22);
-            btnRenameDB.Text = "RenameDB";
-            btnRenameDB.Click += btnRenameDB_Click;
-            // 
-            // editTableToolStripMenuItem
-            // 
-            editTableToolStripMenuItem.Name = "editTableToolStripMenuItem";
-            editTableToolStripMenuItem.Size = new Size(180, 22);
-            editTableToolStripMenuItem.Text = "EditTable";
+            tablesToolStripMenuItem.Name = "tablesToolStripMenuItem";
+            tablesToolStripMenuItem.Size = new Size(180, 22);
+            tablesToolStripMenuItem.Text = "Tables";
+            tablesToolStripMenuItem.Click += tablesToolStripMenuItem_Click;
             // 
             // Form1
             // 
@@ -180,5 +181,6 @@
         private ToolStripMenuItem editToolStripMenuItem;
         private ToolStripMenuItem btnRenameDB;
         private ToolStripMenuItem editTableToolStripMenuItem;
+        private ToolStripMenuItem tablesToolStripMenuItem;
     }
 }

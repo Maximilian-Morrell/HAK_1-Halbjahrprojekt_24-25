@@ -54,5 +54,12 @@ namespace DatabaseManager.Classes
             this.Rows = new List<RowObject>();
             this.Database = Database;
         }
+
+        public TableObject(string Name, string Database, List<RowObject> RowObjects)
+        {
+            this.Name = Name;
+            this.Rows = RowObjects;
+            this.Database = Database;
+        }
     }
 }

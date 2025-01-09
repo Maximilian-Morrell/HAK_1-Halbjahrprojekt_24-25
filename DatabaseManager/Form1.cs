@@ -12,6 +12,7 @@ namespace DatabaseManager
         CreateNewDataBase DatabaseForm;
         DeleteDB deleteDB;
         DeleteTable deleteTable;
+        EditTable editTable;
         RenameDB renameDB;
         LogInWindows LogInScreen = new LogInWindows();
         CreateNewTable createNewTable;
@@ -201,6 +202,54 @@ namespace DatabaseManager
             SqlController.UpdateDBName(renameDB.comboBoxDataBase.SelectedItem as string, renameDB.txtBoxNewName.Text);
             LoadDBs();
             renameDB.UpdateDBs(Databases);
+        }
+
+        private void tablesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            List<TableObject> TableObjects = new List<TableObject>();
+            Dictionary<string, List<TableObject>> DB_Tables = new Dictionary<string, List<TableObject>>();
+            foreach (string db in Databases)
+            {
+                bool HasTables = false;
+                List<string> Tables = SqlController.GetTables(db);
+                foreach(string Table in Tables)
+                {
+                    HasTables = true;
+                   DataTable dt = SqlController.GetTableContent(db, Table);
+                   List<RowObject> rows = new List<RowObject>();
+                   foreach(DataColumn column in dt.Columns)
+                   {
+                        RowObject row = new RowObject(column.ColumnName, column.AllowDBNull, column.DataType.ToString());
+                        rows.Add(row);
+                   }
+                   TableObject tableObject = new TableObject(Table, db, rows);
+                   TableObjects.Add(tableObject);
+                }
+                if (HasTables)
+                {
+                    DB_Tables.Add(db, TableObjects);
+                }
+            }
+
+            editTable = new EditTable(DB_Tables);
+            editTable.btnEditTable.Click += BtnEditTable_Click;
+            editTable.ShowDialog();
+        }
+
+        private void BtnEditTable_Click(object? sender, EventArgs e)
+        {
+            TableObject table = new TableObject(editTable.comboBoxTableName.SelectedItem as string, createNewTable.comboBoxDataBase.SelectedItem as string);
+            foreach (TableLayoutPanel tableLayoutPanel in createNewTable.tableLayoutPanels)
+            {
+                TextBox txtBoxName = tableLayoutPanel.Controls[3] as TextBox;
+                CheckBox CanBeNull = tableLayoutPanel.Controls[4] as CheckBox;
+                ComboBox TypeBox = tableLayoutPanel.Controls[5] as ComboBox;
+                RowObject row = new RowObject(txtBoxName.Text, CanBeNull.Checked, TypeBox.SelectedItem as string);
+                table.Rows.Add(row);
+            }
+
+            SqlController.AlterTable(table);
+
         }
     }
 }
