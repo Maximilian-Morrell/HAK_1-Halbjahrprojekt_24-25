@@ -191,37 +191,6 @@ namespace DatabaseManager.Classes
             }
         }
 
-        public void AlterTable(TableObject Table)
-        {
-            try
-            {
-                Con.Open();
-                Con.ChangeDatabase(Table.Database);
-                string Cmdtxt = $"ALTER TABLE {Table.Name} ({Table.Rows[0].Name} Int NOT NULL PRIMARY KEY IDENTITY, ";
-                Table.Rows.RemoveAt(0);
-                foreach (RowObject Row in Table.Rows)
-                {
-                    if (Row.CanBeNull)
-                    {
-                        Cmdtxt = Cmdtxt + Row.Name + " " + Row.Type + ", ";
-                    }
-                    else
-                    {
-                        Cmdtxt = Cmdtxt + Row.Name + " " + Row.Type + " NOT NULL" + ", ";
-                    }
-                }
-                Cmdtxt = Cmdtxt.Remove(Cmdtxt.Length - 2);
-                Cmdtxt = Cmdtxt + ")";
-                Cmd.CommandText = Cmdtxt;
-                Cmd.ExecuteNonQuery();
-                Con.Close();
-            }
-            catch (Exception e)
-            {
-                MessageBox.Show(e.Message);
-            }
-        }
-
         public void CreateNewDB(string DBName)
         {
             try

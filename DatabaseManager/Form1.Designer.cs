@@ -43,7 +43,6 @@
             btnRenameDB = new ToolStripMenuItem();
             TabHost = new TabControl();
             contextMenuDelete = new ContextMenuStrip(components);
-            tablesToolStripMenuItem = new ToolStripMenuItem();
             toolStrip1.SuspendLayout();
             SuspendLayout();
             // 
@@ -117,7 +116,7 @@
             // 
             // editToolStripMenuItem
             // 
-            editToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { btnRenameDB, tablesToolStripMenuItem });
+            editToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { btnRenameDB });
             editToolStripMenuItem.Name = "editToolStripMenuItem";
             editToolStripMenuItem.Size = new Size(180, 22);
             editToolStripMenuItem.Text = "Edit";
@@ -142,13 +141,6 @@
             // 
             contextMenuDelete.Name = "contextMenuDelete";
             contextMenuDelete.Size = new Size(61, 4);
-            // 
-            // tablesToolStripMenuItem
-            // 
-            tablesToolStripMenuItem.Name = "tablesToolStripMenuItem";
-            tablesToolStripMenuItem.Size = new Size(180, 22);
-            tablesToolStripMenuItem.Text = "Tables";
-            tablesToolStripMenuItem.Click += tablesToolStripMenuItem_Click;
             // 
             // Form1
             // 
@@ -181,6 +173,5 @@
         private ToolStripMenuItem editToolStripMenuItem;
         private ToolStripMenuItem btnRenameDB;
         private ToolStripMenuItem editTableToolStripMenuItem;
-        private ToolStripMenuItem tablesToolStripMenuItem;
     }
 }
